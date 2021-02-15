@@ -3,11 +3,17 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.List;
 import java.util.Objects;
 
+import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidFeedbackException;
+
 public class Feedback {
     private String attempt;
     private List<Mark> marks;
 
     public Feedback(String attempt, List<Mark> marks) {
+        if (marks.size() != attempt.length()) {
+            throw new InvalidFeedbackException("Attempt length does not match marks length.");
+        }
+
         this.attempt = attempt;
         this.marks = marks;
     }
