@@ -1,5 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +26,14 @@ public class Feedback {
 
     public boolean isWordInvalid() {
         return marks.stream().anyMatch(mark -> mark.equals(Mark.INVALID));
+    }
+
+    public static Feedback correct(String attempt) {
+        return new Feedback(attempt, new ArrayList<>(Collections.nCopies(attempt.length(), Mark.CORRECT)));
+    }
+
+    public static Feedback invalid(String attempt) {
+        return new Feedback(attempt, new ArrayList<>(Collections.nCopies(attempt.length(), Mark.INVALID)));
     }
 
     public String getAttempt() {

@@ -19,8 +19,7 @@ class FeedbackTest {
     @Test
     @DisplayName("word is guessed if all letters are correct")
     public void wordIsGuessed() {
-        Feedback feedback = new Feedback("woord",
-                List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT));
+        Feedback feedback = Feedback.correct("woord");
 
         assertTrue(feedback.isWordGuessed());
     }
@@ -28,17 +27,15 @@ class FeedbackTest {
     @Test
     @DisplayName("word is not guessed if any letter is not correct")
     public void wordIsNotGuessed() {
-        Feedback feedback = new Feedback("woord",
-                List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT));
+        Feedback feedback = Feedback.invalid("woord");
 
         assertFalse(feedback.isWordGuessed());
     }
 
     @Test
-    @DisplayName("word is invalid if any letter is invalid")
+    @DisplayName("word is invalid if all letters are invalid")
     public void wordIsInvalid() {
-        Feedback feedback = new Feedback("woord",
-                List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.CORRECT));
+        Feedback feedback = Feedback.invalid("woord");
 
         assertTrue(feedback.isWordInvalid());
     }
@@ -46,8 +43,7 @@ class FeedbackTest {
     @Test
     @DisplayName("word is valid if none of the letters are invalid")
     public void wordIsNotInvalid() {
-        Feedback feedback = new Feedback("woord",
-                List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT));
+        Feedback feedback = Feedback.correct("woord");
 
         assertFalse(feedback.isWordInvalid());
     }
