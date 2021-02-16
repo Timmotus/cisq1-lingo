@@ -20,6 +20,21 @@ public class Feedback {
         this.marks = marks;
     }
 
+    public Hint giveHint(Hint previousHint, String wordToGuess) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < wordToGuess.length(); i++) {
+            Mark currentMark = this.marks.get(i);
+            String previousHintCurrentLetter = previousHint.getHints().get(i);
+            if (!currentMark.equals(Mark.CORRECT) && previousHintCurrentLetter.equals(".") ) {
+                stringBuilder.append(".");
+            } else {
+                Character c = wordToGuess.charAt(i);
+                stringBuilder.append(c);
+            }
+        }
+        return Hint.of(stringBuilder.toString());
+    }
+
     public boolean isWordGuessed() {
         return marks.stream().allMatch(mark -> mark.equals(Mark.CORRECT));
     }
