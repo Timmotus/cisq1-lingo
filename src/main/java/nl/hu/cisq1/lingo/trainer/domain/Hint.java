@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Hint {
-    List<String> hints;
+    private List<String> hints;
 
     public Hint(List<String> hints) {
         this.hints = hints;
