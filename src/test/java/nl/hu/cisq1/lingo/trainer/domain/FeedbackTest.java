@@ -57,7 +57,9 @@ class FeedbackTest {
     public static Stream<Arguments> provideHintExamples() {
         return Stream.of(
             Arguments.of(Hint.of("w...."), List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT), Hint.of("woo..")),
-            Arguments.of(Hint.of("....d"), List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT), Hint.of("woo.d"))
+            Arguments.of(Hint.of("....d"), List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT), Hint.of("woo.d")),
+            Arguments.of(Hint.of(".oord"), List.of(Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT), Hint.of(".oord")),
+            Arguments.of(Hint.of("....."), List.of(Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT), Hint.of("....."))
         );
     }
 
