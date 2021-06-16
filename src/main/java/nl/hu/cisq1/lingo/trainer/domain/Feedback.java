@@ -3,7 +3,6 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidFeedbackException;
 
@@ -57,26 +56,5 @@ public class Feedback {
 
     public List<Mark> getMarks() {
         return this.marks;
-    }
-
-    @Override
-    public String toString() {
-        return "{" + " attempt='" + getAttempt() + "'" + ", marks='" + getMarks() + "'" + "}";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Feedback)) {
-            return false;
-        }
-        Feedback feedback = (Feedback) o;
-        return Objects.equals(attempt, feedback.attempt) && Objects.equals(marks, feedback.marks);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(attempt, marks);
     }
 }
