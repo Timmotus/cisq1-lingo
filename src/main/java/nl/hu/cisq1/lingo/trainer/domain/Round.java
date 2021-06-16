@@ -17,10 +17,8 @@ public class Round {
         this.maxGuesses = maxGuesses;
     }
 
-    private void checkGuessLimit() throws GuessException {
-        if (this.timesGuessed.equals(maxGuesses)) {
-            throw new GuessException("Maximum number of guesses reached: " + this.maxGuesses + ".");
-        }
+    public boolean guessLimitReached() {
+        return this.timesGuessed.equals(maxGuesses);
     }
 
     private void doAbsentOrCorrect(String attempt, List<String> present, List<Mark> marks) {
@@ -47,7 +45,7 @@ public class Round {
     }
 
     public Feedback guessWord(String attempt) throws GuessException {
-        checkGuessLimit();
+        if (guessLimitReached()) throw new GuessException("Maximum number of guesses reached: " + this.maxGuesses + ".");
         this.timesGuessed += 1;
 
         // TODO: should check if word exists
@@ -73,7 +71,7 @@ public class Round {
                 this.wordToGuess.charAt(0) + String.join("", Collections.nCopies(this.wordToGuess.length() - 1, ".")));
     }
 
-    public Integer getTimesGuessed() {
-        return this.timesGuessed;
+    public String getWordToGuess() {
+        return wordToGuess;
     }
 }
