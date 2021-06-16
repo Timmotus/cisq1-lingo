@@ -16,7 +16,8 @@ class RoundTest {
     @DisplayName("hint matches if first letter is the first letter of the word and the rest are dots")
     public void roundStartHintMatches() {
         Round round = new Round("Testing", 1);
-        assertArrayEquals(round.startRound().getHints().toArray(), List.of("T", ".", ".", ".", ".", ".", ".").toArray());
+        assertArrayEquals(round.startRound().getHints().toArray(),
+                List.of("T", ".", ".", ".", ".", ".", ".").toArray());
     }
 
     public static Stream<Arguments> provideRoundExamples() {
@@ -26,9 +27,17 @@ class RoundTest {
                                 List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.CORRECT, Mark.ABSENT),
                                 List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT))),
                 Arguments.of("traffic", List.of("tragedy", "tactile", "twelfth"),
-                        List.of(List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT),
-                                List.of(Mark.CORRECT, Mark.PRESENT, Mark.PRESENT, Mark.ABSENT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT),
-                                List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT))));
+                        List.of(List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT,
+                                Mark.ABSENT),
+                                List.of(Mark.CORRECT, Mark.PRESENT, Mark.PRESENT, Mark.ABSENT, Mark.PRESENT,
+                                        Mark.ABSENT, Mark.ABSENT),
+                                List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.CORRECT, Mark.ABSENT,
+                                        Mark.ABSENT))),
+                Arguments.of("longenough", List.of("tooshort", "toolongword"), List.of(
+                        List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID,
+                                Mark.INVALID, Mark.INVALID),
+                        List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID,
+                                Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID))));
     }
 
     @ParameterizedTest
