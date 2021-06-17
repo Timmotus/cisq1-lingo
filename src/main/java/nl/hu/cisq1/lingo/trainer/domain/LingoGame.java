@@ -3,10 +3,13 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 
 public class LingoGame {
+    @Getter
     private List<Round> rounds;
+    @Getter
     private List<List<Feedback>> feedbacks;
     private Integer currentRoundIndex = 0;
 
@@ -31,11 +34,15 @@ public class LingoGame {
     }
 
     public Feedback guessWord(String guess) {
-        if (isNewRoundRequired()) throw new GuessException("Can't guess when round is over.");
-        if (isGameOver()) throw new GuessException("Can't guess when game is over.");
-        Feedback feedback = getCurrentRound().guessWord(guess);
-        feedbacks.get(currentRoundIndex).add(feedback);
-        return feedback;
+        if (isNewRoundRequired())
+            throw new GuessException("Can't guess when round is over.");
+        try {
+            Feedback feedback = getCurrentRound().guessWord(guess);
+            feedbacks.get(currentRoundIndex).add(feedback);
+            return feedback;
+        } catch (GuessException e) {
+            throw new GuessException("Can't guess when game is over.");
+        }
     }
 
     public boolean isNewRoundRequired() {
@@ -50,20 +57,14 @@ public class LingoGame {
         return getCurrentRound().getWordToGuess().length();
     }
 
-    public List<Round> getRounds() {
-        return this.rounds;
-    }
-    public List<List<Feedback>> getFeedbacks() {
-        return this.feedbacks;
-    }
-
     public Round getCurrentRound() {
         return this.rounds.get(currentRoundIndex);
     }
 
     private boolean isWordGuessed() {
         List<Feedback> currentRoundFeedbacks = feedbacks.get(currentRoundIndex);
-        if (currentRoundFeedbacks.isEmpty()) return false;
+        if (currentRoundFeedbacks.isEmpty())
+            return false;
         return currentRoundFeedbacks.get(currentRoundFeedbacks.size() - 1).isWordGuessed();
     }
 }

@@ -74,4 +74,12 @@ class GameTest {
         lingoGame.guessWord("western");
         assertTrue(lingoGame.isGameOver(), "gameover");
     }
+
+    @Test
+    @DisplayName("current word length should match the size of the provided word")
+    public void getCurrentWordLength() {
+        String word = "Testing";
+        LingoGame lingoGame = LingoGame.newGame(word, 3);
+        assertEquals(word.length(), lingoGame.getCurrentWordLength(), "current word length");
+    }
 }

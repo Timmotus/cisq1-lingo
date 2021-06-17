@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidFeedbackException;
 
 public class Feedback {
+    @Getter
     private String attempt;
+    @Getter
     private List<Mark> marks;
 
     public Feedback(String attempt, List<Mark> marks) {
@@ -24,7 +27,7 @@ public class Feedback {
         for (int i = 0; i < wordToGuess.length(); i++) {
             Mark currentMark = this.marks.get(i);
             String previousHintCurrentLetter = previousHint.getHints().get(i);
-            if (!currentMark.equals(Mark.CORRECT) && previousHintCurrentLetter.equals(".") ) {
+            if (!currentMark.equals(Mark.CORRECT) && previousHintCurrentLetter.equals(".")) {
                 stringBuilder.append(".");
             } else {
                 Character c = wordToGuess.charAt(i);
@@ -48,13 +51,5 @@ public class Feedback {
 
     public static Feedback invalid(String attempt) {
         return new Feedback(attempt, new ArrayList<>(Collections.nCopies(attempt.length(), Mark.INVALID)));
-    }
-
-    public String getAttempt() {
-        return this.attempt;
-    }
-
-    public List<Mark> getMarks() {
-        return this.marks;
     }
 }

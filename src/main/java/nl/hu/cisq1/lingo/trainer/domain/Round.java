@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 
 public class Round {
+    @Getter
     private final String wordToGuess;
     private final Integer maxGuesses;
     private Integer timesGuessed = 0;
@@ -45,7 +47,8 @@ public class Round {
     }
 
     public Feedback guessWord(String attempt) throws GuessException {
-        if (guessLimitReached()) throw new GuessException("Maximum number of guesses reached: " + this.maxGuesses + ".");
+        if (guessLimitReached())
+            throw new GuessException("Maximum number of guesses reached: " + this.maxGuesses + ".");
         this.timesGuessed += 1;
 
         // TODO: should check if word exists
@@ -69,9 +72,5 @@ public class Round {
         // Generates a Hint with only the first letter given
         return Hint.of(
                 this.wordToGuess.charAt(0) + String.join("", Collections.nCopies(this.wordToGuess.length() - 1, ".")));
-    }
-
-    public String getWordToGuess() {
-        return wordToGuess;
     }
 }
