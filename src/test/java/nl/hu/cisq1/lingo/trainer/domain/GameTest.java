@@ -8,27 +8,36 @@ import org.junit.jupiter.api.Test;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 
 class GameTest {
+    // TODO: add tests for new rounds
+
     @Test
     @DisplayName("game correctly started if new round is started on gamestart")
     public void startNewGame() {
         LingoGame lingoGame = LingoGame.newGame("test", 5);
-        assertEquals(1, lingoGame.getRounds().size(), "total rounds");
+        assertNotNull(lingoGame.getCurrentRound());
     }
 
     @Test
-    @DisplayName("it should be indicated a new round has to be started")
-    public void newRoundRequiredAfterSuccesfullGuess() {
+    @DisplayName("game status should be DOGUESS after game start")
+    public void startNewGameStatus() {
+        LingoGame lingoGame = LingoGame.newGame("test", 5);
+        assertEquals(lingoGame.getStatus(), GameStatus.DOGUESS, "status");
+    }
+
+    @Test
+    @DisplayName("the status after a successfull guess should be that the round has been won")
+    public void roundWonStatusAfterSuccessfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
-        assertTrue(lingoGame.isNewRoundRequired(), "new round has to start");
+        assertEquals(lingoGame.getStatus(), GameStatus.ROUNDWON, "gamestatus");
     }
 
     @Test
-    @DisplayName("it should be indicated a new round does not have to be started")
-    public void newRoundNotRequiredAfterUnsuccesfullGuess() {
+    @DisplayName("the status should be DOGUESS after an unsuccessfull guess that does not end the game")
+    public void newGuessStatusAfterUnsuccesfullfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testers");
-        assertFalse(lingoGame.isNewRoundRequired(), "new round does not have to start");
+        assertEquals(lingoGame.getStatus(), GameStatus.DOGUESS, "gamestatus");
     }
 
     @Test
@@ -52,7 +61,7 @@ class GameTest {
     public void gameIsNotOverAfterSuccesfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
-        assertFalse(lingoGame.isGameOver(), "gameover");
+        assertNotEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
     }
 
     @Test
@@ -62,7 +71,7 @@ class GameTest {
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
         lingoGame.guessWord("testing");
-        assertFalse(lingoGame.isGameOver(), "gameover");
+        assertNotEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
     }
 
     @Test
@@ -72,7 +81,7 @@ class GameTest {
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
         lingoGame.guessWord("western");
-        assertTrue(lingoGame.isGameOver(), "gameover");
+        assertEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
     }
 
     @Test

@@ -16,7 +16,7 @@ class RoundTest {
     @DisplayName("hint matches if first letter is the first letter of the word and the rest are dots")
     public void roundStartHintMatches() {
         Round round = new Round("Testing", 1);
-        assertArrayEquals(round.startRound().getHints().toArray(),
+        assertArrayEquals(round.startOfRoundHint().getHints(),
                 List.of("T", ".", ".", ".", ".", ".", ".").toArray());
     }
 

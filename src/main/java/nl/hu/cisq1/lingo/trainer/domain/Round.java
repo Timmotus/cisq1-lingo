@@ -5,13 +5,22 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 
+@Entity
+@Table(name = "round")
 public class Round {
+    @Id
+    private Long id;
     @Getter
     private final String wordToGuess;
     private final Integer maxGuesses;
+    @Getter
     private Integer timesGuessed = 0;
 
     public Round(String wordToGuess, Integer maxGuesses) {
@@ -68,7 +77,7 @@ public class Round {
         return new Feedback(attempt, marks);
     }
 
-    public Hint startRound() {
+    public Hint startOfRoundHint() {
         // Generates a Hint with only the first letter given
         return Hint.of(
                 this.wordToGuess.charAt(0) + String.join("", Collections.nCopies(this.wordToGuess.length() - 1, ".")));
