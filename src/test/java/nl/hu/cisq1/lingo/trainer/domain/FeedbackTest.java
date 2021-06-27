@@ -20,7 +20,8 @@ class FeedbackTest {
     @Test
     @DisplayName("length of word and marks match")
     public void lengthMatches() {
-        assertThrows(InvalidFeedbackException.class, () -> new Feedback("woord", List.of(Mark.CORRECT)));
+        List<Mark> marks = List.of(Mark.CORRECT);
+        assertThrows(InvalidFeedbackException.class, () -> new Feedback("woord", marks));
     }
 
     @Test

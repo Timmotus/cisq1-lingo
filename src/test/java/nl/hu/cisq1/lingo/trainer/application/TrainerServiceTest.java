@@ -47,7 +47,8 @@ public class TrainerServiceTest {
     @DisplayName("get game that does not exist")
     public void getNonExistantGame() {
         when(gameRepository.findById(anyLong())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> trainerService.getGame(Long.valueOf(1)));
+        Long id = Long.valueOf(1);
+        assertThrows(NotFoundException.class, () -> trainerService.getGame(id));
     }
 
     @Test
@@ -74,7 +75,8 @@ public class TrainerServiceTest {
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
         when(wordService.provideRandomWord(anyInt())).thenReturn("appel");
 
-        assertThrows(GuessException.class, () -> trainerService.startNewRound(Long.valueOf(1)));
+        Long id = Long.valueOf(1);
+        assertThrows(GuessException.class, () -> trainerService.startNewRound(id));
     }
 
     @Test
@@ -85,7 +87,8 @@ public class TrainerServiceTest {
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
         when(wordService.provideRandomWord(anyInt())).thenReturn("appel");
 
-        assertThrows(GuessException.class, () -> trainerService.startNewRound(Long.valueOf(1)));
+        Long id = Long.valueOf(1);
+        assertThrows(GuessException.class, () -> trainerService.startNewRound(id));
     }
 
     @Test

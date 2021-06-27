@@ -22,7 +22,10 @@ public class GameState {
     private List<Feedback> feedbacks;
 
     @Getter
-    private Integer wordLength, timesGuessed;
+    private Integer wordLength;
+
+    @Getter
+    private Integer timesGuessed;
 
     @Getter
     private GameStatus status;
@@ -42,7 +45,7 @@ public class GameState {
 
     public Optional<Feedback> getCurrentFeedback() {
         return Optional.ofNullable(
-            this.feedbacks.size() == 0
+            this.feedbacks.isEmpty()
                 ? null
                 : this.feedbacks.get(feedbacks.size() - 1)
         );

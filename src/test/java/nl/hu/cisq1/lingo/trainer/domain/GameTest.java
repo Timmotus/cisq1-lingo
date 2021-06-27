@@ -21,7 +21,7 @@ class GameTest {
     @DisplayName("game status should be DOGUESS after game start")
     public void startNewGameStatus() {
         LingoGame lingoGame = LingoGame.newGame("test", 5);
-        assertEquals(lingoGame.getStatus(), GameStatus.DOGUESS, "status");
+        assertEquals(GameStatus.DOGUESS, lingoGame.getStatus(), "status");
     }
 
     @Test
@@ -29,7 +29,7 @@ class GameTest {
     public void roundWonStatusAfterSuccessfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
-        assertEquals(lingoGame.getStatus(), GameStatus.ROUNDWON, "gamestatus");
+        assertEquals(GameStatus.ROUNDWON, lingoGame.getStatus(), "gamestatus");
     }
 
     @Test
@@ -37,7 +37,7 @@ class GameTest {
     public void newGuessStatusAfterUnsuccesfullfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testers");
-        assertEquals(lingoGame.getStatus(), GameStatus.DOGUESS, "gamestatus");
+        assertEquals(GameStatus.DOGUESS, lingoGame.getStatus(), "gamestatus");
     }
 
     @Test
@@ -61,7 +61,7 @@ class GameTest {
     public void gameIsNotOverAfterSuccesfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
-        assertNotEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
+        assertNotEquals(GameStatus.GAMEOVER, lingoGame.getStatus(), "gameover");
     }
 
     @Test
@@ -71,7 +71,7 @@ class GameTest {
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
         lingoGame.guessWord("testing");
-        assertNotEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
+        assertNotEquals(GameStatus.GAMEOVER, lingoGame.getStatus(), "gameover");
     }
 
     @Test
@@ -81,7 +81,7 @@ class GameTest {
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
         lingoGame.guessWord("western");
-        assertEquals(lingoGame.getStatus(), GameStatus.GAMEOVER, "gameover");
+        assertEquals(GameStatus.GAMEOVER, lingoGame.getStatus(), "gameover");
     }
 
     @Test
