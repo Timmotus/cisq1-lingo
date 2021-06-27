@@ -76,32 +76,28 @@ public class LingoGame {
         Feedback feedback;
 
         try {
-            feedback = getCurrentRound().guessWord(guess);
+            feedback = this.currentRound.guessWord(guess);
         } catch (GuessException e) {
             throw new GuessException("Can't guess when game is over.");
         }
 
         feedbacks.add(feedback);
-        this.hint = feedback.giveHint(hint, getCurrentRound().getWordToGuess());
+        this.hint = feedback.giveHint(hint, this.currentRound.getWordToGuess());
 
         if (feedback.isWordGuessed()) {
             this.status = GameStatus.ROUNDWON;
             this.score += 5 * (5 - feedbacks.size()) + 5;
-        } else if (getCurrentRound().guessLimitReached()) {
+        } else if (this.currentRound.guessLimitReached()) {
             this.status = GameStatus.GAMEOVER;
         }
         return feedback;
     }
 
     public Integer getCurrentWordLength() {
-        return getCurrentRound().getWordToGuess().length();
+        return this.currentRound.getWordToGuess().length();
     }
 
     public Integer getCurrentRoundTimesGuessed() {
-        return getCurrentRound().getWordToGuess().length();
-    }
-
-    public Feedback getCurrentFeedback() {
-        return feedbacks.get(feedbacks.size() - 1);
+        return this.currentRound.getWordToGuess().length();
     }
 }
