@@ -12,21 +12,21 @@ class GameTest {
 
     @Test
     @DisplayName("game correctly started if new round is started on gamestart")
-    public void startNewGame() {
+    void startNewGame() {
         LingoGame lingoGame = LingoGame.newGame("test", 5);
         assertNotNull(lingoGame.getCurrentRound());
     }
 
     @Test
     @DisplayName("game status should be DOGUESS after game start")
-    public void startNewGameStatus() {
+    void startNewGameStatus() {
         LingoGame lingoGame = LingoGame.newGame("test", 5);
         assertEquals(GameStatus.DOGUESS, lingoGame.getStatus(), "status");
     }
 
     @Test
     @DisplayName("the status after a successfull guess should be that the round has been won")
-    public void roundWonStatusAfterSuccessfullGuess() {
+    void roundWonStatusAfterSuccessfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
         assertEquals(GameStatus.ROUNDWON, lingoGame.getStatus(), "gamestatus");
@@ -34,7 +34,7 @@ class GameTest {
 
     @Test
     @DisplayName("the status should be DOGUESS after an unsuccessfull guess that does not end the game")
-    public void newGuessStatusAfterUnsuccesfullfullGuess() {
+    void newGuessStatusAfterUnsuccesfullfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testers");
         assertEquals(GameStatus.DOGUESS, lingoGame.getStatus(), "gamestatus");
@@ -42,7 +42,7 @@ class GameTest {
 
     @Test
     @DisplayName("can't guess when a new round has to be started")
-    public void guessNotPossibleWhenNewRoundRequired() {
+    void guessNotPossibleWhenNewRoundRequired() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
         assertThrows(GuessException.class, () -> lingoGame.guessWord("test"), "can't guess");
@@ -50,7 +50,7 @@ class GameTest {
 
     @Test
     @DisplayName("can't guess when gameover")
-    public void guessNotPossibleGameover() {
+    void guessNotPossibleGameover() {
         LingoGame lingoGame = LingoGame.newGame("testing", 1);
         lingoGame.guessWord("testers");
         assertThrows(GuessException.class, () -> lingoGame.guessWord("test"), "can't guess");
@@ -58,7 +58,7 @@ class GameTest {
 
     @Test
     @DisplayName("game is not over after succesfull guess")
-    public void gameIsNotOverAfterSuccesfullGuess() {
+    void gameIsNotOverAfterSuccesfullGuess() {
         LingoGame lingoGame = LingoGame.newGame("testing", 5);
         lingoGame.guessWord("testing");
         assertNotEquals(GameStatus.GAMEOVER, lingoGame.getStatus(), "gameover");
@@ -66,7 +66,7 @@ class GameTest {
 
     @Test
     @DisplayName("game is not over after succesfull guess at guess limit")
-    public void gameIsNotOverAfterSuccesfullGuessAtGuessLimit() {
+    void gameIsNotOverAfterSuccesfullGuessAtGuessLimit() {
         LingoGame lingoGame = LingoGame.newGame("testing", 3);
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
@@ -76,7 +76,7 @@ class GameTest {
 
     @Test
     @DisplayName("game is over when reaching guess limit and not succesfully guessing")
-    public void gameIsOverAtGuessLimit() {
+    void gameIsOverAtGuessLimit() {
         LingoGame lingoGame = LingoGame.newGame("testing", 3);
         lingoGame.guessWord("testers");
         lingoGame.guessWord("testert");
@@ -86,7 +86,7 @@ class GameTest {
 
     @Test
     @DisplayName("current word length should match the size of the provided word")
-    public void getCurrentWordLength() {
+    void getCurrentWordLength() {
         String word = "Testing";
         LingoGame lingoGame = LingoGame.newGame(word, 3);
         assertEquals(word.length(), lingoGame.getCurrentWordLength(), "current word length");

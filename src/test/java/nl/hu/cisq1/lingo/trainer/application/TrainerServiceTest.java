@@ -24,12 +24,12 @@ import nl.hu.cisq1.lingo.trainer.domain.LingoGame;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 import nl.hu.cisq1.lingo.words.application.WordService;
 
-public class TrainerServiceTest {
+class TrainerServiceTest {
     WordService wordService;
     SpringGameRepository gameRepository;
     TrainerService trainerService;
 
-    public TrainerServiceTest() {
+    TrainerServiceTest() {
         this.wordService = mock(WordService.class);
         this.gameRepository = mock(SpringGameRepository.class);
         this.trainerService = new TrainerService(wordService, gameRepository);
@@ -37,7 +37,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("get game")
-    public void getGame() {
+    void getGame() {
         LingoGame game = LingoGame.newGame("test", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
         assertEquals(new GameState(game), trainerService.getGame(Long.valueOf(1)));
@@ -45,7 +45,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("get game that does not exist")
-    public void getNonExistantGame() {
+    void getNonExistantGame() {
         when(gameRepository.findById(anyLong())).thenReturn(Optional.empty());
         Long id = Long.valueOf(1);
         assertThrows(NotFoundException.class, () -> trainerService.getGame(id));
@@ -53,7 +53,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("get all games")
-    public void getAllGames() {
+    void getAllGames() {
         LingoGame game1 = LingoGame.newGame("test", 5);
         LingoGame game2 = LingoGame.newGame("testing", 3);
         when(gameRepository.findAll()).thenReturn(List.of(game1, game2));
@@ -62,7 +62,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("start new game")
-    public void startNewGame() {
+    void startNewGame() {
         when(wordService.provideRandomWord(anyInt())).thenReturn("appel");
         LingoGame game = LingoGame.newGame("appel", 5);
         assertEquals(new GameState(game), trainerService.startNewGame());
@@ -70,7 +70,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("can't start new round when one is still ongoing")
-    public void cantStartNewRoundWhileOngoing() {
+    void cantStartNewRoundWhileOngoing() {
         LingoGame game = LingoGame.newGame("test", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
         when(wordService.provideRandomWord(anyInt())).thenReturn("appel");
@@ -81,7 +81,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("can't start new round when game is over")
-    public void cantStartNewRoundWhenGameover() {
+    void cantStartNewRoundWhenGameover() {
         LingoGame game = LingoGame.newGame("test", 1);
         game.guessWord("guess");
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
@@ -93,7 +93,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("can start a new round after a correct guess")
-    public void startNewRoundWhenGuessedCorrectly() {
+    void startNewRoundWhenGuessedCorrectly() {
         LingoGame game = LingoGame.newGame("test", 5);
         game.guessWord("test");
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
@@ -104,7 +104,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("word length should be incremented from 5 to 6")
-    public void incrementRandomWordLengthOnRoundStart() {
+    void incrementRandomWordLengthOnRoundStart() {
         LingoGame game = LingoGame.newGame("tests", 5);
         game.guessWord("tests");
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
@@ -115,7 +115,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("word length should be incremented from 7 to 5")
-    public void incrementRandomWordLengthOnRoundStartAtMaxLength() {
+    void incrementRandomWordLengthOnRoundStartAtMaxLength() {
         LingoGame game = LingoGame.newGame("testers", 7);
         game.guessWord("testers");
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
@@ -126,7 +126,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("currentFeedback should be null after round start")
-    public void currentFeedbackNullAtRoundStart() {
+    void currentFeedbackNullAtRoundStart() {
         LingoGame game = LingoGame.newGame("test", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
 
@@ -135,7 +135,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("currentFeedback should not be null after a guess")
-    public void currentFeedbackNotNullAfterGuess() {
+    void currentFeedbackNotNullAfterGuess() {
         LingoGame game = LingoGame.newGame("test", 5);
         game.guessWord("tests");
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
@@ -145,7 +145,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("status should be round won after succesfull guess")
-    public void guessSuccessfull() {
+    void guessSuccessfull() {
         LingoGame game = LingoGame.newGame("tests", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
 
@@ -154,7 +154,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("status should be do guess after unsuccesfull guess")
-    public void guessUnsuccessfull() {
+    void guessUnsuccessfull() {
         LingoGame game = LingoGame.newGame("tests", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
 
@@ -163,7 +163,7 @@ public class TrainerServiceTest {
 
     @Test
     @DisplayName("status should be game over after unsuccesfull guess at guess limit")
-    public void guessGameOver() {
+    void guessGameOver() {
         LingoGame game = LingoGame.newGame("tests", 1);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
 

@@ -14,13 +14,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 class RoundTest {
     @Test
     @DisplayName("hint matches if first letter is the first letter of the word and the rest are dots")
-    public void roundStartHintMatches() {
+    void roundStartHintMatches() {
         Round round = new Round("Testing", 1);
         assertArrayEquals(round.startOfRoundHint().getHints(),
                 List.of("T", ".", ".", ".", ".", ".", ".").toArray());
     }
 
-    public static Stream<Arguments> provideRoundExamples() {
+    static Stream<Arguments> provideRoundExamples() {
         return Stream.of(
                 Arguments.of("world", List.of("wheel", "while", "worry"),
                         List.of(List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.PRESENT),
@@ -43,7 +43,7 @@ class RoundTest {
     @ParameterizedTest
     @MethodSource("provideRoundExamples")
     @DisplayName("feedback marks are correct when they match the matching expected marks")
-    public void guessWord(String wordToGuess, List<String> attempts, List<List<Mark>> expectedMarks) {
+    void guessWord(String wordToGuess, List<String> attempts, List<List<Mark>> expectedMarks) {
         Round round = new Round(wordToGuess, attempts.size());
         int i = 0;
         for (String attempt : attempts) {

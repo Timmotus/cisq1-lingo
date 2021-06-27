@@ -19,14 +19,14 @@ import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidFeedbackException;
 class FeedbackTest {
     @Test
     @DisplayName("length of word and marks match")
-    public void lengthMatches() {
+    void lengthMatches() {
         List<Mark> marks = List.of(Mark.CORRECT);
         assertThrows(InvalidFeedbackException.class, () -> new Feedback("woord", marks));
     }
 
     @Test
     @DisplayName("word is guessed if all letters are correct")
-    public void wordIsGuessed() {
+    void wordIsGuessed() {
         Feedback feedback = Feedback.correct("woord");
 
         assertTrue(feedback.isWordGuessed());
@@ -34,7 +34,7 @@ class FeedbackTest {
 
     @Test
     @DisplayName("word is not guessed if any letter is not correct")
-    public void wordIsNotGuessed() {
+    void wordIsNotGuessed() {
         Feedback feedback = Feedback.invalid("woord");
 
         assertFalse(feedback.isWordGuessed());
@@ -42,7 +42,7 @@ class FeedbackTest {
 
     @Test
     @DisplayName("word is invalid if all letters are invalid")
-    public void wordIsInvalid() {
+    void wordIsInvalid() {
         Feedback feedback = Feedback.invalid("woord");
 
         assertTrue(feedback.isWordInvalid());
@@ -50,13 +50,13 @@ class FeedbackTest {
 
     @Test
     @DisplayName("word is valid if none of the letters are invalid")
-    public void wordIsNotInvalid() {
+    void wordIsNotInvalid() {
         Feedback feedback = Feedback.correct("woord");
 
         assertFalse(feedback.isWordInvalid());
     }
 
-    public static Stream<Arguments> provideHintExamples() {
+    static Stream<Arguments> provideHintExamples() {
         return Stream.of(
             Arguments.of(Hint.of("w...."), List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT), Hint.of("woo..")),
             Arguments.of(Hint.of("....d"), List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT), Hint.of("woo.d")),
@@ -68,7 +68,7 @@ class FeedbackTest {
     @ParameterizedTest
     @MethodSource("provideHintExamples")
     @DisplayName("hint is correct depending on given previousHint and wordToGuess")
-    public void giveHint(Hint previousHint, List<Mark> marks, Hint result) {
+    void giveHint(Hint previousHint, List<Mark> marks, Hint result) {
         String wordToGuess = "woord";
         Feedback feedback = new Feedback(new String(new char[marks.size()]), marks);
 
