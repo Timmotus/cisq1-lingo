@@ -96,7 +96,7 @@ public class TrainerServiceTest {
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
         when(wordService.provideRandomWord(6)).thenReturn("appels");
 
-        assertEquals(6, trainerService.startNewRound(Long.valueOf(1)).getCurrentRoundState().getWordLength());
+        assertEquals(6, trainerService.startNewRound(Long.valueOf(1)).getWordLength());
     }
 
     // TODO: more tests
