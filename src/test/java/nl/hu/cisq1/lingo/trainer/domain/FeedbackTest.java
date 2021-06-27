@@ -1,5 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -70,6 +71,6 @@ class FeedbackTest {
         String wordToGuess = "woord";
         Feedback feedback = new Feedback(new String(new char[marks.size()]), marks);
 
-        assertTrue(feedback.giveHint(previousHint, wordToGuess).equals(result));
+        assertEquals(result, feedback.giveHint(previousHint, wordToGuess));
     }
 }

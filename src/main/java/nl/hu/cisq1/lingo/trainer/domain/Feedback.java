@@ -39,7 +39,7 @@ public class Feedback {
     public Hint giveHint(Hint previousHint, String wordToGuess) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < wordToGuess.length(); i++) {
-            Mark currentMark = this.marks.get(i);
+            Mark currentMark = i >= this.marks.size() ? Mark.INVALID : this.marks.get(i);
             String previousHintCurrentLetter = previousHint.getHints()[i];
             if (!currentMark.equals(Mark.CORRECT) && previousHintCurrentLetter.equals(".")) {
                 stringBuilder.append(".");
