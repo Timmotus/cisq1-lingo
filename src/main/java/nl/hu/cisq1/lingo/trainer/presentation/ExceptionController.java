@@ -31,9 +31,10 @@ public class ExceptionController {
 
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<ExceptionResponse> handleConflict(MethodArgumentTypeMismatchException e) {
+        Class<?> requiredType = e.getRequiredType();
         return new ResponseEntity<>(
-            new ExceptionResponse(e.getValue() + (e.getRequiredType() != null
-                ? " is not a proper " + e.getRequiredType().getSimpleName()
+            new ExceptionResponse(e.getValue() + (requiredType != null
+                ? " is not a proper " + requiredType.getSimpleName()
                 : " is not properly formatted.")
             ),
             HttpStatus.CONFLICT
