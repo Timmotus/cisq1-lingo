@@ -26,7 +26,7 @@ public class TrainerService {
 
     private LingoGame getLingoGame(Long id) {
         return gameRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("game with id '" + id + "'' was not found"));
+                .orElseThrow(() -> new NotFoundException("game with id '" + id + "' was not found"));
     }
 
     public GameState getGame(Long id) {
