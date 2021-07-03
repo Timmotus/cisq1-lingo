@@ -32,14 +32,17 @@ public class ExceptionController {
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<ExceptionResponse> handleConflict(MethodArgumentTypeMismatchException e) {
         return new ResponseEntity<>(
-            new ExceptionResponse(e.getValue() + " is not a proper " + e.getRequiredType().getSimpleName()),
+            new ExceptionResponse(e.getValue() + (e.getRequiredType() != null
+                ? " is not a proper " + e.getRequiredType().getSimpleName()
+                : " is not properly formatted.")
+            ),
             HttpStatus.CONFLICT
         );
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionResponse> handleDataIntegrityViolation(DataIntegrityViolationException e) {
-        String[] message = e.getRootCause().getLocalizedMessage().split("Detail: ");
+        String[] message = e.getMostSpecificCause().getLocalizedMessage().split("Detail: ");
         return new ResponseEntity<>(
             new ExceptionResponse(message[message.length - 1]),
             HttpStatus.CONFLICT
@@ -75,7 +78,7 @@ public class ExceptionController {
     @ExceptionHandler({ MethodArgumentNotValidException.class })
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
+        ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
