@@ -45,6 +45,11 @@ public class TrainerService {
         return new GameState(game);
     }
 
+    public void deleteGame(Long gameId) {
+        LingoGame game = getLingoGame(gameId);
+        gameRepository.delete(game);
+    }
+
     public GameState startNewRound(Long gameId) {
         LingoGame game = getLingoGame(gameId);
         Integer wordLength = game.getCurrentWordLength() + 1;
