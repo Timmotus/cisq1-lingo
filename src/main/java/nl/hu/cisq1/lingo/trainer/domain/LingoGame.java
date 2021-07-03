@@ -65,6 +65,7 @@ public class LingoGame {
         if (this.status.equals(GameStatus.GAMEOVER))
             throw new GuessException("Can't start a new round when gameover.");
         Round round = new Round(wordToGuess, maxGuesses);
+        this.feedbacks.clear();
         this.hint = round.startOfRoundHint();
         this.currentRound = round;
         this.status = GameStatus.DOGUESS;
@@ -90,6 +91,7 @@ public class LingoGame {
             this.score += 5 * (5 - feedbacks.size()) + 5;
         } else if (this.currentRound.guessLimitReached()) {
             this.status = GameStatus.GAMEOVER;
+            this.hint = Hint.of(this.currentRound.getWordToGuess());
         }
         return feedback;
     }
