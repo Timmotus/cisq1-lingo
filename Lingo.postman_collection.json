@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "e27c47a0-edb1-41e0-8609-39d46beaf522",
+		"name": "Lingo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/trainer/game",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"trainer",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/trainer/game/1",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"trainer",
+						"game",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/trainer/game",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"trainer",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Do guess",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/trainer/game/1?guess=kleinig",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"trainer",
+						"game",
+						"1"
+					],
+					"query": [
+						{
+							"key": "guess",
+							"value": "kleinig"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Round",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/trainer/game/1",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"trainer",
+						"game",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "address",
+			"value": "http://localhost:8080"
+		}
+	]
+}
