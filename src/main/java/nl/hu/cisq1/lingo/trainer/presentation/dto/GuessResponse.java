@@ -15,7 +15,7 @@ public class GuessResponse {
         this.id = gameState.getId();
         this.status = gameState.getStatus();
         this.guess = guess;
-        this.feedback = gameState.getCurrentFeedback().orElseGet(() -> new Feedback());
+        this.feedback = gameState.getCurrentFeedback().orElseGet(Feedback::new);
         this.hint = gameState.getHint().toString();
     }
 }
