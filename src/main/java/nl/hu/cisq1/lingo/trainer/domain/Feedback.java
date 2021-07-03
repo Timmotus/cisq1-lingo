@@ -8,17 +8,23 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidFeedbackException;
 
 @Entity
 @Table(name = "feedback")
+@EqualsAndHashCode
+@ToString
 public class Feedback {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Long id;
     @Getter
     private String attempt;
@@ -26,6 +32,9 @@ public class Feedback {
     @Enumerated
     @ElementCollection(targetClass = Mark.class)
     private List<Mark> marks;
+
+    public Feedback() {
+    }
 
     public Feedback(String attempt, List<Mark> marks) {
         if (marks.size() != attempt.length()) {

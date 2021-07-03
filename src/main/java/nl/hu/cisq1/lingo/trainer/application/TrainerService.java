@@ -3,6 +3,8 @@ package nl.hu.cisq1.lingo.trainer.application;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import nl.hu.cisq1.lingo.trainer.application.dto.GameState;
@@ -11,6 +13,7 @@ import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.LingoGame;
 import nl.hu.cisq1.lingo.words.application.WordService;
 
+@Transactional
 @Service
 public class TrainerService {
     private WordService wordService;

@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,12 +18,16 @@ import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
 @Table(name = "round")
 public class Round {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Getter
-    private final String wordToGuess;
-    private final Integer maxGuesses;
+    private String wordToGuess;
+    private Integer maxGuesses;
     @Getter
     private Integer timesGuessed = 0;
+
+    public Round() {
+    }
 
     public Round(String wordToGuess, Integer maxGuesses) {
         this.wordToGuess = wordToGuess;
