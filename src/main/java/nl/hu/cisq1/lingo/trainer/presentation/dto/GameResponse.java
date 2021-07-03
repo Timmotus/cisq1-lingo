@@ -7,11 +7,11 @@ import nl.hu.cisq1.lingo.trainer.domain.Feedback;
 import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 
 public class GameResponse {
-    public Long id;
-    public Integer score;
-    public GameStatus status;
-    public List<Feedback> feedbacks;
-    public String hint;
+    public final Long id;
+    public final Integer score;
+    public final GameStatus status;
+    public final List<Feedback> feedbacks;
+    public final String hint;
 
     public GameResponse(GameState gameState) {
         this.id = gameState.getId();

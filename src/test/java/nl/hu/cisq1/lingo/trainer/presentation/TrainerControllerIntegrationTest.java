@@ -24,7 +24,7 @@ import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 @ActiveProfiles("ci")
 @Import(CiTestConfiguration.class)
 @AutoConfigureMockMvc
-public class TrainerControllerIntegrationTest {
+class TrainerControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 

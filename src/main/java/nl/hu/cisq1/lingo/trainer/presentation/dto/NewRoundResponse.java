@@ -4,9 +4,9 @@ import nl.hu.cisq1.lingo.trainer.application.dto.GameState;
 import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 
 public class NewRoundResponse {
-    public Long id;
-    public GameStatus status;
-    public String hint;
+    public final Long id;
+    public final GameStatus status;
+    public final String hint;
 
     public NewRoundResponse(GameState gameState) {
         this.id = gameState.getId();

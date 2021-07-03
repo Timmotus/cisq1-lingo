@@ -22,7 +22,7 @@ import nl.hu.cisq1.lingo.words.domain.Word;
 @SpringBootTest
 @ActiveProfiles("ci")
 @Import(CiTestConfiguration.class)
-public class TrainerServiceIntegrationTest {
+class TrainerServiceIntegrationTest {
     @Autowired
     private TrainerService trainerService;
     @Autowired

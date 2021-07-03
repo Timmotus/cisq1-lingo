@@ -5,11 +5,11 @@ import nl.hu.cisq1.lingo.trainer.domain.Feedback;
 import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 
 public class GuessResponse {
-    public Long id;
-    public GameStatus status;
-    public String guess;
-    public Feedback feedback;
-    public String hint;
+    public final Long id;
+    public final GameStatus status;
+    public final String guess;
+    public final Feedback feedback;
+    public final String hint;
 
     public GuessResponse(GameState gameState, String guess) {
         this.id = gameState.getId();
