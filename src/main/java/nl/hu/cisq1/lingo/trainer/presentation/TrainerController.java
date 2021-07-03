@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import nl.hu.cisq1.lingo.trainer.application.TrainerService;
+import nl.hu.cisq1.lingo.trainer.application.exception.NotFoundException;
+import nl.hu.cisq1.lingo.trainer.domain.exception.GuessException;
+import nl.hu.cisq1.lingo.trainer.presentation.dto.ExceptionResponse;
 import nl.hu.cisq1.lingo.trainer.presentation.dto.GameResponse;
 import nl.hu.cisq1.lingo.trainer.presentation.dto.GuessResponse;
 import nl.hu.cisq1.lingo.trainer.presentation.dto.NewRoundResponse;
@@ -51,5 +55,22 @@ public class TrainerController {
     @PostMapping(value = "/{id}", params = "guess")
     public ResponseEntity<GuessResponse> doGuess(@PathVariable Long id, @RequestParam String guess) {
         return new ResponseEntity<>(new GuessResponse(trainerService.guess(id, guess), guess), HttpStatus.OK);
+    }
+
+
+    @ExceptionHandler({ GuessException.class })
+    public ResponseEntity<ExceptionResponse> handleConflict(Exception e) {
+        return new ResponseEntity<>(
+            new ExceptionResponse(e.getLocalizedMessage()),
+            HttpStatus.CONFLICT
+        );
+    }
+
+    @ExceptionHandler({ NotFoundException.class })
+    public ResponseEntity<ExceptionResponse> handleNotFound(Exception e) {
+        return new ResponseEntity<>(
+            new ExceptionResponse(e.getLocalizedMessage()),
+            HttpStatus.NOT_FOUND
+        );
     }
 }
