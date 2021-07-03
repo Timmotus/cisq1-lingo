@@ -105,7 +105,6 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/LingoApplication.*</exclude>
-                                <exclude>**/ExceptionController.*</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -115,10 +114,6 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <excludes>
-                                <exclude>**/LingoApplication.*</exclude>
-                                <exclude>**/ExceptionController.*</exclude>
-                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
