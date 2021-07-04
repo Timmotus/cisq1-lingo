@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -148,6 +149,7 @@ class TrainerServiceTest {
     void guessSuccessfull() {
         LingoGame game = LingoGame.newGame("tests", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
+        when(wordService.wordExists(anyString())).thenReturn(true);
 
         assertEquals(GameStatus.ROUNDWON, trainerService.guess(Long.valueOf(1), "tests").getStatus());
     }
@@ -157,6 +159,7 @@ class TrainerServiceTest {
     void guessUnsuccessfull() {
         LingoGame game = LingoGame.newGame("tests", 5);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
+        when(wordService.wordExists(anyString())).thenReturn(true);
 
         assertEquals(GameStatus.DOGUESS, trainerService.guess(Long.valueOf(1), "testr").getStatus());
     }
@@ -166,7 +169,18 @@ class TrainerServiceTest {
     void guessGameOver() {
         LingoGame game = LingoGame.newGame("tests", 1);
         when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
+        when(wordService.wordExists(anyString())).thenReturn(true);
 
         assertEquals(GameStatus.GAMEOVER, trainerService.guess(Long.valueOf(1), "test").getStatus());
+    }
+
+    @Test
+    @DisplayName("feedback should be all invalid because guessed word does not exist")
+    void feedbackInvalidAfterNonExistantWord() {
+        LingoGame game = LingoGame.newGame("tests", 1);
+        when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
+        when(wordService.wordExists(anyString())).thenReturn(false);
+
+        assertTrue(trainerService.guess(Long.valueOf(1), "test").getCurrentFeedback().get().isWordInvalid());
     }
 }

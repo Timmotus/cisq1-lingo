@@ -60,7 +60,7 @@ public class TrainerService {
 
     public GameState guess(Long gameId, String guess) {
         LingoGame game = getLingoGame(gameId);
-        game.guessWord(guess);
+        game.guessWord(guess, wordService.wordExists(guess));
         gameRepository.save(game);
         return new GameState(game);
     }

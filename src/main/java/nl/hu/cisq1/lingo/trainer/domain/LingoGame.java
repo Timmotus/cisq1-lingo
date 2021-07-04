@@ -73,12 +73,16 @@ public class LingoGame {
     }
 
     public Feedback guessWord(String guess) {
+        return guessWord(guess, true);
+    }
+
+    public Feedback guessWord(String guess, boolean wordExists) {
         if (this.status.equals(GameStatus.ROUNDWON))
             throw new GuessException("Can't guess when round is over.");
         Feedback feedback;
 
         try {
-            feedback = this.currentRound.guessWord(guess);
+            feedback = this.currentRound.guessWord(guess, wordExists);
         } catch (GuessException e) {
             throw new GuessException("Can't guess when game is over.");
         }

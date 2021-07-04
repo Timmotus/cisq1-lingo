@@ -61,15 +61,12 @@ public class Round {
         }
     }
 
-    public Feedback guessWord(String attempt) throws GuessException {
+    public Feedback guessWord(String attempt, boolean wordExists) throws GuessException {
         if (guessLimitReached())
             throw new GuessException("Maximum number of guesses reached: " + this.maxGuesses + ".");
         this.timesGuessed += 1;
 
-        // TODO: should check if word exists
-
-        // Invalid length
-        if (attempt.length() != this.wordToGuess.length()) {
+        if (attempt.length() != this.wordToGuess.length() || !wordExists) {
             return Feedback.invalid(attempt);
         }
 
